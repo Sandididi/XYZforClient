@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DigitalMirrorGarden</title>
+    <link rel="icon" type="image/png" href="Img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"></script>
+    <script src="jquery.ripples.js"></script>
+    <script src="libraries/p5.js"></script>
+    <!-- <script src="libraries/p5.sound.min.js"></script> -->
+    <script src="sketch.js"></script>
+  </head>
+
+  <body>
+    <div id="canvas-container"></div>
+    <div class="ripple"></div>
+    <div class="alert">
+      <div class="loading">
+        <div class="loading-text">
+          <span class="loading-text-words">L</span>
+          <span class="loading-text-words">O</span>
+          <span class="loading-text-words">A</span>
+          <span class="loading-text-words">D</span>
+          <span class="loading-text-words">I</span>
+          <span class="loading-text-words">N</span>
+          <span class="loading-text-words">G</span>
+          <h3></h3>
+        </div>
+      </div>
+      <div class="alert-font">
+        <h4>點擊進入虛擬花園</h4>
+        <h5>請允許開啟相機並使用chrome瀏覽器進入花園...</h5>
+      </div>
+    </div>
+    <script>
+      // click to fade out the alert message.
+      $(".alert-font").hide();
+      
+    </script>
+
+    <script>
+      // an array to recieve other clients' coordinate.
+      let coordinate = [];
+      // a variable to record each event's time stamp.
+      let timeStamp = 0;
+
+      // 建立 WebSocket
+      let url = 'wss://sandididi.xyz:3000'
+      const ws = new WebSocket(url)
+
+      // Listen for possible errors
+      ws.addEventListener('error', (event) => {
+        console.log('WebSocket error: ', event);
+      });
+
+      // Handle mouse click event.
+      document.addEventListener('click', event => {
+        // get and record current time stamp.
+        timeStamp = event.timeStamp;
+        // pack up data ready to be sent.// count clientX&clientY in this window
+        let data = [event.timeStamp, event.clientX / window.outerWidth*100, event.clientY / window.outerHeight*100];
+        // send data.
+        ws.send(data);
+      });
+
+      // 監聽連線狀態
+      ws.onopen = () => {
+        console.log('open connection')
+      };
+      ws.onclose = () => {
+        console.log('close connection');
+      };
+      //接收 Server 發送的訊息
+      ws.onmessage = event => {
+        // split received data.
+        let buffer = event.data.split(',');
+
+        // filter out the event from current client itself. // put clientX、clientY in this window
+        if (timeStamp != buffer[0]) {
+          coordinate.push(parseInt(buffer[1]));
+          coordinate.push(parseInt(buffer[2]));
+          var x = Math.round(coordinate[0]*window.outerWidth/100);
+          var y = Math.round(coordinate[1]*window.outerHeight/100);
+          var dropRadius = 20;
+          var strength = 0.6 + Math.random() * 0.04;
+          $('.ripple').ripples('drop', x, y, dropRadius, strength);
+          // clear coordinate.
+          coordinate.pop();
+          coordinate.pop();
+        }
+      };
+
+      $('.ripple').ripples({
+        resolution: 512,
+        dropRadius: 16,
+        perturbance: 0.2
+      });
+    </script>
+  </body>
+</html>
