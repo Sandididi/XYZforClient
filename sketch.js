@@ -44,7 +44,9 @@ function preload() {
   leafTx = loadImage('Img/Leaves_tex.png', Loaded);
   EmoTx = loadImage('Img/EmoTX.jpg', Loaded);
 }
-
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight, WEBGL);
+}
 function setup() {
   colorMode(HSB,360,100,100);
   imageMode(CENTER);
