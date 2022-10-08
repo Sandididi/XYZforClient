@@ -10,7 +10,9 @@ html, body {
 #canvas-container{
   z-index: -20;
 }
-
+.flex_container{
+  display: flex;
+}
 .ripple{
   position: absolute;
   top: 0;
