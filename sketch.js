@@ -150,7 +150,7 @@ function draw() {
   noStroke();
   translate(0,0,500);
   texture(noiseTx);
-  scale(windowWidth*0.3,windowHeight*0.3,10);
+  scale(windowWidth,windowHeight,10);
   rotateX(90);
   tint(150,30,100,30);
   model(BGmodel);
