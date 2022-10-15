@@ -112,7 +112,7 @@ function draw() {
     texture(cam);
     rotateX(roangle/5);
     rotateY(roangle/6);
-    scale(0.5+sin(roangle/3)*0.1);
+    scale(0.7+sin(roangle/3)*0.3);
       rotateX(120);
       rotateZ(-30);
       scale(56);
