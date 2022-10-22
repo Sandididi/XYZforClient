@@ -96,12 +96,12 @@ function draw() {
     pop();
     push();
       //TorusEmoji(ObjModel,r0,r1,thetaMax,cubeNum,size,offset)
-      texture(EmoTx);
-      TorusEmoji(emoji[0],screen,screen/2,360,50,15,0);
+      texture(leafTx);
+      TorusEmoji(leaf[0],screen,screen/2,360,50,15,0);
       rotateY(turn/3);
-      TorusEmoji(emoji[1],screen,screen/2,360,50,12,0);
+      TorusEmoji(leaf[1],screen,screen/2,360,50,12,0);
       rotateY(-turn/3+20);
-      TorusEmoji(emoji[2],screen,screen/2,360,50,12,0);
+      TorusEmoji(leaf[2],screen,screen/2,360,50,12,0);
     pop();
   pop();
   
