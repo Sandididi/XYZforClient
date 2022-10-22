@@ -81,9 +81,9 @@ function draw() {
     texture(leafTx);
     translate(0,-800,0);
     push();
-      rotateY(-turn/8);
+      rotateY(-turn/4);
       tint(111,40,100,100);
-      TorusCube(leaf[0],screen,screen/2,360,0,360,45,20,30);
+      TorusCube(leaf[0],screen,screen/2,360,0,360,30,20,30);
       TorusCube(leaf[2],screen,screen/4,360,0,80,90,30,45);
     pop();
     push();
@@ -139,9 +139,9 @@ function draw() {
   pop();
   push();
   noStroke();
-  translate(0,0,-550);
+  translate(0,0,-1600);
   texture(viewTx);
-  scale((windowHeight/4)*3,-windowHeight,10);
+  scale(-(windowHeight/3)*6.4,-windowHeight*1.6,10);
   rotateX(90);
   model(viewCube);
   pop();
@@ -150,7 +150,7 @@ function draw() {
   noStroke();
   translate(0,0,500);
   texture(noiseTx);
-  scale(windowWidth*0.3,windowHeight*0.3,10);
+  scale(windowWidth,windowHeight,10);
   rotateX(90);
   tint(150,30,100,30);
   model(BGmodel);
